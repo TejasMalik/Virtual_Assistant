@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<nav class="navbar bg-nav">
+    <a href="" class="navbar-brand text-light">Virtual Assistant</a>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="text-light display-4 mt-100" style="font-size: 80px;">Explore our Website with our new Virtual
+                Assistant</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="card mt-100">
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <label>{{ field.label }}</label>
+                        <input class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}"
+                            type="{{ field.field.widget.input_type }}"><br>
+                        
+                        {% if form.errors %}
+                        {% for error in field.errors %}
+                        <p class="help is-danger">
+                            {{ error|escape }}
+                        </p>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        <input type="submit" class="btn-btn-primary btn-block btn-lg" value="Sign Up">
+                    </form>
+                    <p>Already a user? <a href="{% url 'login_url' %}">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <h1>Register</h1>
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <button>Register</button>
+</form> -->
+{% endblock %}
